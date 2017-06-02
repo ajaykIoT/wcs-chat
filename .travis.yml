@@ -11,7 +11,7 @@
     "yarn config set progress false"
   ],
   "script": [
-    " - ng build --prod"
+    "ng build --prod"
   ],
   "global_env": "DBUS_SESSION_BUS_ADDRESS=/dev/null",
   "group": "stable",
