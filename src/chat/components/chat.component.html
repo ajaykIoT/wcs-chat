@@ -1,0 +1,18 @@
+<div class="chatbox">
+    <div class="chat">
+        <ul>
+            <li *ngFor="let ChatMessage of messages">            
+                <span [ngClass]="(ChatMessage.sentBy=='USER')?'user':'wcs'">{{ ChatMessage.sentBy }}: {{ ChatMessage.message }}
+                </span>
+            </li>
+        </ul>
+  </div>
+  
+  <form class='inputbox' (ngSubmit)='onSubmit($event)' let chatapp ='ngForm'>
+        <input type='text' id='message' [(ngModel)]='lastMessage' name='message'>
+        <button type="submit" >Send</button>
+    </form>
+
+
+
+</div>
