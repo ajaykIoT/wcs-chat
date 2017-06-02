@@ -1,19 +1,21 @@
-language: node_js
-
-node_js:"6.10.3"
-
-sudo: false
-
-cache:
-  directories:
-    - node_modules
-
-branches:
-  only:
-    - master
-    
-before_script: 
-  - "npm install -g @angular/cli"
-  
-script:
-  - ng build --prod  
+{
+  "dist": "trusty",
+  "sudo": "required",
+  "language": "node_js",
+  "before_install": [
+    "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then export DISPLAY=:99.0; fi",
+    "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then sh -e /etc/init.d/xvfb start; fi",
+    "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then export CHROME_BIN=chromium-browser; fi",
+    "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then echo \"--no-sandbox\" > ~/.config/chromium-flags.conf; fi",
+    "yarn config set spin false",
+    "yarn config set progress false"
+  ],
+  "script": [
+    " - ng build --prod"
+  ],
+  "global_env": "DBUS_SESSION_BUS_ADDRESS=/dev/null",
+  "group": "stable",
+  "env": "SCRIPT=test",
+  "node_js": "6",
+  "os": "linux"
+}
