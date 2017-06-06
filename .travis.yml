@@ -7,15 +7,15 @@ branches:
     - master
 
 before_script: 
-   "npm uninstall --save-dev angular-cli"
-   "npm cache clear"
-   "npm install --save-dev @angular/cli@latest"  
+   - npm uninstall --save-dev angular-cli
+   - npm cache clear
+   - npm install --save-dev @angular/cli@latest
 script:
-   "ng build --prod"
-   "bash ./.build.sh"
+   - ng build --prod
+  - bash ./.build.sh
   
 before_deploy:
-  "cd dist"
+  - cd dist
 deploy:
   provider: bluemixcloudfoundry
   skip_cleanup: true
