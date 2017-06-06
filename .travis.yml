@@ -9,7 +9,7 @@ branches:
 before_script: 
    - npm uninstall -g angular-cli
    - npm cache clear
-   - npm install -g @angular/cli@latest
+   - npm install -g @angular-cli
 script:
    - ng build --prod
   - bash ./.build.sh
