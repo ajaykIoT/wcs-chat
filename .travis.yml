@@ -7,9 +7,9 @@ branches:
     - master
 
 before_script: 
-   - npm uninstall --save-dev angular-cli
+   - npm uninstall -g angular-cli
    - npm cache clear
-   - npm install --save-dev @angular/cli@latest
+   - npm install -g @angular/cli@latest
 script:
    - ng build --prod
   - bash ./.build.sh
