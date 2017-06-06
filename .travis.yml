@@ -1,21 +1,27 @@
-{
-  "dist": "trusty",
-  "sudo": "required",
-  "language": "node_js",
-  "before_install": [
-    "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then export DISPLAY=:99.0; fi",
-    "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then sh -e /etc/init.d/xvfb start; fi",
-    "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then export CHROME_BIN=chromium-browser; fi",
-    "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then echo \"--no-sandbox\" > ~/.config/chromium-flags.conf; fi",
-    "yarn config set spin false",
-    "yarn config set progress false"
-  ],
-  "script": [
-    "ng build --prod"
-  ],
-  "global_env": "DBUS_SESSION_BUS_ADDRESS=/dev/null",
-  "group": "stable",
-  "env": "SCRIPT=test",
-  "node_js": "6",
-  "os": "linux"
-}
+language: node_js
+node_js:
+  - "6"
+
+branches:
+  only:
+    - master
+
+before_script: 
+  - npm install -g @angular/cli
+
+script:
+  - ng build --prod
+  - bash ./.build.sh
+  
+before_deploy:
+  - cd dist
+deploy:
+  provider: bluemixcloudfoundry
+  skip_cleanup: true
+  manifest: manifest.yml
+  username: $BLUEMIX_USER
+  password: $BLUEMIX_PASS
+  organization: $BLUEMIX_ORGANIZATION
+  space: $BLUEMIX_SPACE
+  on:
+    branch: master
